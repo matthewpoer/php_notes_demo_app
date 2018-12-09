@@ -1,0 +1,4 @@
+name: brandboom-note-taking-demo-app
+recipe: lamp
+config:
+  webroot: .
