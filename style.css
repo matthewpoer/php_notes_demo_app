@@ -1,0 +1,29 @@
+div.new_note input {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+div.note {
+  border-width: 3px;
+  border-style: solid;
+  border-color: black;
+  height: 200px;
+  width: 300px;
+  float: left;
+  margin: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+div.subject {
+  font-weight: bold;
+  border-width: 0;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+}
+
+div.buttons {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
