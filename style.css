@@ -1,8 +1,3 @@
-div.new_note input {
-  font-size: 2em;
-  font-weight: bold;
-}
-
 div.note {
   border-width: 3px;
   border-style: solid;
@@ -26,4 +21,13 @@ div.buttons {
   position: absolute;
   right: 10px;
   bottom: 10px;
+}
+
+div.new_note input[type="text"], div.new_note textarea {
+  width: 100%;
+}
+
+div.new_note textarea {
+  width: 100%;
+  height: 100px;
 }

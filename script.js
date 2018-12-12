@@ -1,11 +1,36 @@
 function note_new() {
-  alert('add a new note');
+  api_call(JSON.stringify({
+    verb: 'create',
+    color: '#000000',
+    subject: $('input[name="new_note_subject"]').val(),
+    content: $('textarea[name="new_note_content"]').val()
+  }));
 }
 
 function note_edit(note_id) {
-  alert('edit note ' + note_id);
+  api_call(JSON.stringify({
+    verb: 'edit',
+    id: note_id,
+    color:  '#000001',
+    subject: 'some-subject',
+    content: 'some-content'
+  }));
 }
 
 function note_delete(note_id) {
-  alert('delete note ' + note_id);
+  api_call(JSON.stringify({
+    verb: 'delete',
+    id:  note_id
+  }));
+}
+
+function api_call(data) {
+  $.ajax({
+    method: 'POST',
+    url: 'api.php',
+    contentType: 'application/x-www-form-urlencoded',
+    data: data
+  }).done(function() {
+    location.reload();
+  });
 }

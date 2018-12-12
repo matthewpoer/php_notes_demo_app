@@ -6,13 +6,13 @@ class Notes {
   public $subject = 'Note Subject';
   public $content = '# Note Content';
 
-  public function __construct($id) {
+  public function __construct($id = NULL) {
     if(!empty($id)) $this->load($id);
   }
 
   public function load($id) {
     $db = new Database();
-    $result = $db->query("select id, color, subject, content from notes where id = \'{$id}\'");
+    $result = $db->query("select id, color, subject, content from notes where id = '{$id}'");
     $return = array();
     $this->id = NULL;
     while($row = $result->fetchArray(SQLITE3_ASSOC)) {
