@@ -18,10 +18,12 @@ function note_edit(note_id) {
 }
 
 function note_delete(note_id) {
-  api_call(JSON.stringify({
-    verb: 'delete',
-    id:  note_id
-  }));
+  if(confirm('Delete Note?')) {
+    api_call(JSON.stringify({
+      verb: 'delete',
+      id:  note_id
+    }));
+  }
 }
 
 function api_call(data) {
