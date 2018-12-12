@@ -1,7 +1,7 @@
 function note_new() {
   api_call(JSON.stringify({
     verb: 'create',
-    color: '#000000',
+    color: $('input[name="new_note_color"]').val(),
     subject: $('input[name="new_note_subject"]').val(),
     content: $('textarea[name="new_note_content"]').val()
   }));
