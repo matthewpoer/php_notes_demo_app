@@ -18,6 +18,10 @@ div.subject {
   margin-bottom: 10px;
 }
 
+div.plaintext {
+  display: none;
+}
+
 div.buttons {
   position: absolute;
   right: 10px;
