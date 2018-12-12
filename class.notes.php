@@ -2,6 +2,7 @@
 class Notes {
 
   public $id = '';
+  public $touched = '';
   public $color = '#000000';
   public $subject = 'Note Subject';
   public $content = '# Note Content';
@@ -12,11 +13,12 @@ class Notes {
 
   public function load($id) {
     $db = new Database();
-    $result = $db->query("select id, color, subject, content from notes where id = '{$id}'");
+    $result = $db->query("select id, touched, color, subject, content from notes where id = '{$id}'");
     $return = array();
     $this->id = NULL;
     while($row = $result->fetchArray(SQLITE3_ASSOC)) {
       $this->id = $row['id'];
+      $this->touched = $row['touched'];
       $this->color = $row['color'];
       $this->subject = $row['subject'];
       $this->content = $row['content'];
@@ -27,13 +29,14 @@ class Notes {
   }
 
   public function save() {
+    $touched = time();
 
     if(empty($this->id)) {
-      $query = 'insert into notes (color, subject, content) values'
-        . " ('{$this->color}', '{$this->subject}', '{$this->content}') ";
+      $query = 'insert into notes (color, subject, content, touched) values'
+        . " ('{$this->color}', '{$this->subject}', '{$this->content}', '{$touched}') ";
     }
     else {
-      $query = "update notes set color='{$this->color}',subject='{$this->subject}',content='{$this->content}' where id='{$this->id}'";
+      $query = "update notes set touched='{$touched}',color='{$this->color}',subject='{$this->subject}',content='{$this->content}' where id='{$this->id}'";
     }
 
     $db = new Database();
@@ -56,7 +59,7 @@ class Notes {
 
   public static function load_notes() {
     $db = new Database();
-    $result = $db->query('select id, color, subject, content from notes');
+    $result = $db->query('select id, touched, color, subject, content from notes order by touched desc');
     $return = array();
     while($row = $result->fetchArray(SQLITE3_ASSOC)) {
       $return[$row['id']] = $row;
