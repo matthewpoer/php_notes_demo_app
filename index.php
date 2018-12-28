@@ -27,7 +27,7 @@ echo "</div>";
 
 foreach($notes as $note) {
   $content_html = Michelf\Markdown::defaultTransform($note['content']);
-  echo "<div class='note note_id_{$note['id']}' style='border-color:{$note['color']};'>";
+  echo "<div class='note note_id_{$note['id']}' style='border-color:{$note['color']};' data-background-color='{$note['color']}'>";
   echo "  <div class='subject'>{$note['subject']}</div>";
   echo "  <div class='content plaintext'>{$note['content']}</div>";
   echo "  <div class='content html'>{$content_html}</div>";

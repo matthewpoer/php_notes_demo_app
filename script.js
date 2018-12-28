@@ -24,7 +24,7 @@ function note_edit(note_id) {
   );
 
   // now add the color-picker
-  var color = $('div.note_id_' + note_id).css('border-color');
+  var color = $('div.note_id_' + note_id).attr('data-background-color');
   $('div.note_id_' + note_id).append(
     "<label for='update_note_color'>Color</label>" +
     "<input name='update_note_color' type='color' value='"+color+"' /><br />"
