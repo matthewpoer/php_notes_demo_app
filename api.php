@@ -1,5 +1,5 @@
 <?php
-
+ini_set('display_errors', 0);
 require_once('class.database.php');
 require_once('class.notes.php');
 
@@ -13,19 +13,29 @@ switch($payload['verb']) {
     $note->color = $payload['color'];
     $note->subject = $payload['subject'];
     $note->content = $payload['content'];
-    $note->save();
+    $result = $note->save();
+    if(is_array($result)) {
+      echo json_encode($result);die();
+    }
     break;
   case 'edit';
     $note = new Notes($payload['id']);
     $note->color = $payload['color'];
     $note->subject = $payload['subject'];
     $note->content = $payload['content'];
-    $note->save();
+    $result = $note->save();
+    if(is_array($result)) {
+      echo json_encode($result);die();
+    }
     break;
   case 'delete';
     $note = new Notes($payload['id']);
-    $note->delete();
+    $result = $note->delete();
+    if(is_array($result)) {
+      echo json_encode($result);die();
+    }
     break;
   default:
     die('invalid API call');
 }
+echo json_encode(TRUE);

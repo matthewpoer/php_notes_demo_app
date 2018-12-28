@@ -71,7 +71,13 @@ function api_call(data) {
     url: 'api.php',
     contentType: 'application/x-www-form-urlencoded',
     data: data
-  }).done(function() {
-    location.reload();
+  }).done(function(result) {
+    if(result == 'true') {
+      location.reload();
+    }
+    else {
+      console.log(result);
+      alert('API Call Failed');
+    }
   });
 }

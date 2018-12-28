@@ -19,7 +19,7 @@ class Database extends SQLite3 {
 
   public function install_demo_data() {
     $query = 'insert into notes (id, touched, color, subject, content) values' . PHP_EOL;
-    $query .= '(1, \'1544582405\', \'#00FF00\', \'Reasons to Hire Matt Poer\', \'1. knows markdown
+    $query .= '(1, \'1544582405\', \'#00BB00\', \'Reasons to Hire Matt Poer\', \'1. knows markdown
 2. made this note-taking app [just for you](https://stackoverflow.com/jobs/204945/lead-full-stack-developer-brandboom)
   * the note-taking app uses PHP, SQL Lite (because MySQL seemed a little heavy here), jQuery and [is available for review or cloning on Github](https://github.com/matthewpoer/php_notes_demo_app).
 3. can tell you a lot about fun animals and a little about classic jazz and R&B\'),' . PHP_EOL;

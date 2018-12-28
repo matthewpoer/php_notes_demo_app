@@ -13,7 +13,15 @@ class Notes {
 
   public function load($id) {
     $db = new Database();
-    $result = $db->query("select id, touched, color, subject, content from notes where id = '{$id}'");
+
+    $statement = $db->prepare('select id, touched, color, subject, content from notes where id=:id');
+    $statement->bindValue(':id', $db->escapeString($id));
+    $result = $statement->execute();
+
+    if(!$result || $db->lastErrorCode()) {
+      die($db->lastErrorMsg());
+    }
+
     $return = array();
     $this->id = NULL;
     while($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -29,32 +37,57 @@ class Notes {
   }
 
   public function save() {
-    $touched = time();
-
     if(empty($this->id)) {
-      $query = 'insert into notes (color, subject, content, touched) values'
-        . " ('{$this->color}', '{$this->subject}', '{$this->content}', '{$touched}') ";
+      $query = 'insert into notes (color, subject, content, touched) values (:color, :subject, :content, :touched)';
     }
     else {
-      $query = "update notes set touched='{$touched}',color='{$this->color}',subject='{$this->subject}',content='{$this->content}' where id='{$this->id}'";
+      $query = "update notes set touched=:touched,color=:color,subject=:subject,content=:content where id=:id";
     }
 
     $db = new Database();
-    $db->query($query);
+    $statement = $db->prepare($query);
+    $statement->bindValue(':color', $db->escapeString($this->color));
+    $statement->bindValue(':content', $db->escapeString($this->content));
+    $statement->bindValue(':subject', $db->escapeString($this->subject));
+    $statement->bindValue(':touched', time());
+    if(!empty($this->id)) {
+      $statement->bindValue(':id', $db->escapeString($this->id));
+    }
+
+    $result = $statement->execute();
+
+    if(!$result || $db->lastErrorCode()) {
+      return array(
+        'Error Code' => $db->lastErrorCode(),
+        'Error Message' => $db->lastErrorMsg(),
+      );
+    }
+
     if(empty($this->id)) {
       $this->load($db->lastInsertRowID());
     }
     else {
       $this->load($this->id);
     }
+    return TRUE;
 
   }
 
   public function delete() {
     if(empty($this->id)) throw new Exception('Cannot delete note when no Id is specified');
     $db = new Database();
-    $db->query("delete from notes where id = '{$this->id}'");
+    $db->query("delete from notes where id=:id");
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $db->escapeString($this->id));
+    $result = $statement->execute();
+    if(!$result || $db->lastErrorCode()) {
+      return array(
+        'Error Code' => $db->lastErrorCode(),
+        'Error Message' => $db->lastErrorMsg(),
+      );
+    }
     $this->id = NULL;
+    return TRUE;
   }
 
   public static function load_notes() {
