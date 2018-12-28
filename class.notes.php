@@ -15,7 +15,7 @@ class Notes {
     $db = new Database();
 
     $statement = $db->prepare('select id, touched, color, subject, content from notes where id=:id');
-    $statement->bindValue(':id', $db->escapeString($id));
+    $statement->bindValue(':id', $id);
     $result = $statement->execute();
 
     if(!$result || $db->lastErrorCode()) {
@@ -46,12 +46,12 @@ class Notes {
 
     $db = new Database();
     $statement = $db->prepare($query);
-    $statement->bindValue(':color', $db->escapeString($this->color));
-    $statement->bindValue(':content', $db->escapeString($this->content));
-    $statement->bindValue(':subject', $db->escapeString($this->subject));
+    $statement->bindValue(':color', $this->color);
+    $statement->bindValue(':content', $this->content);
+    $statement->bindValue(':subject', $this->subject);
     $statement->bindValue(':touched', time());
     if(!empty($this->id)) {
-      $statement->bindValue(':id', $db->escapeString($this->id));
+      $statement->bindValue(':id', $this->id);
     }
 
     $result = $statement->execute();
@@ -78,7 +78,7 @@ class Notes {
     $db = new Database();
     $db->query("delete from notes where id=:id");
     $statement = $db->prepare($query);
-    $statement->bindValue(':id', $db->escapeString($this->id));
+    $statement->bindValue(':id', $this->id);
     $result = $statement->execute();
     if(!$result || $db->lastErrorCode()) {
       return array(
