@@ -2,6 +2,8 @@
 
 Application is designed with PHP and SQLite and developed using [Lando](https://github.com/lando/lando). Notes support Markdown thanks to the [michelf/php-markdown](https://michelf.ca/projects/php-markdown/) library.
 
+![screenshot](screenshot.png)
+
 ## Why?
 Brandboom asked for a demo. app with the application. Mandate from the [job application](https://stackoverflow.com/jobs/204945/lead-full-stack-developer-brandboom):
 
